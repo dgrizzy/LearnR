@@ -1,0 +1,58 @@
+---
+title: "Basic R Programming"
+author: "David Griswold"
+date: "June 19, 2018"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Why Learn R?
+
+- Scaleable way to clean, manipulate, and model
+- Access to ecosystem of reporting tools
+
+## How to get the most out of these lunch and learns
+- Code along
+- Be super curious
+- Ask me anything
+
+## What is a Data Type?
+- **When you get an error in your code, it will _very_ often be due to a data type issues**
+- A set of rules for storing data with a specific set of tradeoffs 
+
+## The Vector and the Varible
+```{r echo=TRUE}
+ourVar <- "Hello World"
+anotherVar <- 5.5
+someOtherVar <- 6
+aLogicalVar <- TRUE 
+yetAnotherVar <- c("Detroit", "is", "for", "unicorns", "!") 
+```
+
+- In R, `<-` is the same thing as `=` when we define varibles
+- R sees everything as a vector regardless of lenght
+
+### What is a vector?
+- One dimensional array of data
+- Can be between length one or very long
+- In R, a single piece of information is a vector of length one
+
+## Vector Data Types
+```{r, echo = TRUE}
+typeof(ourVar)
+typeof(anotherVar)
+typeof(someOtherVar)
+typeof(aLogicalVar)
+typeof(yetAnotherVar)
+```
+- *Character:* Text data `"Hello World"`
+- *Integer:* Whole numbers
+- *Double:* Floating point numbers
+- *Logical:* TRUE and False
+
+
+
+

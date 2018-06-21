@@ -1,0 +1,23 @@
+---
+title: 'Lecture 1: Load Titanic Dataset'
+author: "David Griswold"
+date: "June 21, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load Titanic Set
+```{r}
+
+```
+
+# Head of Titanic Set
+```{r}
+
+```
+The `head()` functions allow us to view the first five rows of a dataframe.
+
+# 

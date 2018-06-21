@@ -26,7 +26,8 @@
         usePrettify: true,
         enableSlideAreas: true,
         enableTouch: true,
-                      },
+                        favIcon: '..\globalStatic\logo.png',
+              },
 
       // Author information
       presenters: [
@@ -79,6 +80,21 @@
       opacity: 0;
     }
 
+    slides > slide:not(.nobackground):before {
+      font-size: 12pt;
+      content: "";
+      position: absolute;
+      bottom: 20px;
+      left: 60px;
+      background: url(..\globalStatic\logo.png) no-repeat 0 50%;
+      -webkit-background-size: 30px 30px;
+      -moz-background-size: 30px 30px;
+      -o-background-size: 30px 30px;
+      background-size: 30px 30px;
+      padding-left: 40px;
+      height: 30px;
+      line-height: 1.9;
+    }
   </style>
 
 
@@ -89,6 +105,7 @@
 <slides>
 
   <slide class="title-slide segue nobackground">
+        <aside class="gdbar"><img src="data:image/png;base64,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"></aside>
         <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
     <hgroup class="auto-fadein">
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
@@ -98,26 +115,65 @@
           </hgroup>
   </slide>
 
-<slide class=""><hgroup><h2>Why Learn R?</h2></hgroup><article  id="why-learn-r">
+<slide class=""><hgroup><h2>What is and why use R?</h2></hgroup><article  id="what-is-and-why-use-r">
 
-<ul>
-<li>Scaleable way to clean, manipulate, and model</li>
-<li>Access to ecosystem of reporting tools</li>
+<ul class = 'build'>
+<li>Statistical computing languge used by comapnies like <a href='https://www.listendata.com/2016/12/companies-using-r.html' title=''>Facebook, Microsoft, NYT, Uber, and many more</a></li>
+<li>Open source community (CRAN)</li>
+<li>Great visualization and reporting (Like these slides!)</li>
+<li>R Studio enviorment</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>How to get the most out of these lunch and learns</h2></hgroup><article  id="how-to-get-the-most-out-of-these-lunch-and-learns">
+</article></slide><slide class=""><hgroup><h2>Why Learn R?</h2></hgroup><article  id="why-learn-r">
+
+<ul class = 'build'>
+<li>Scaleable way to clean, manipulate, visualize, and model data</li>
+<li>Valuable, marketable skill</li>
+<li>Opporunity to automate routine data tasks</li>
+<li>Access to ecosystem of machine learning and AI tools</li>
+<li>Easier to learn for data than Python (Point of much debate)</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Best Practices for Learning a New Programming Language</h2></hgroup><article  id="best-practices-for-learning-a-new-programming-language">
+
+<ul class = 'build'>
+<li>Do it, make mistakes</li>
+<li>Be curious with documentation</li>
+<li>Ask me anything and set up extra time to talk</li>
+<li>Be paitent and be persistant</li>
+<li>Give me lots of session feedback</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>R Studio</h2></hgroup><article  id="r-studio">
 
 <ul>
-<li>Code along</li>
-<li>Be super curious</li>
-<li>Ask me anything</li>
+<li>Super poupular R-focused IDE</li>
+<li>Pulls a set of tools together to help us be more productive</li>
+<li>Serves as a hub for the R community</li>
+<li><em>Do we all have it downloaded??</em></li>
 </ul>
+
+</article></slide><slide class=""><hgroup><h2>What we are going to learn</h2></hgroup><article  id="what-we-are-going-to-learn">
+
+<ol>
+<li>Basics of programming and data reading (Base R)</li>
+<li>Titanic data exploration using (Dplyr, ggplot)</li>
+<li>Data cleaning and manipulation (stringr, dplyr)</li>
+<li>Correlation and additional visualization (ggplot, corrplot)</li>
+<li>Linear modeling (lm(), MASS)</li>
+<li>K-Means cluster (caret)</li>
+</ol>
+
+<p>This is all very subject to change. This will be my first time setting up a course, so please let me know how to improve.</p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Basic R Programming</h2></hgroup><article  id="basic-r-programming">
 
 </article></slide><slide class=""><hgroup><h2>What is a Data Type?</h2></hgroup><article  id="what-is-a-data-type">
 
 <ul>
-<li><strong>When you get an error in your code, it will <em>very</em> often be due to a data type issues</strong></li>
-<li>A set of rules for storing data with a specific set of tradeoffs</li>
+<li>Why is this important? <strong>When you get an error in your code, it will <em>very</em> often be due to a data type issues</strong></li>
+<li>What is it?</li>
+<li>A set of rules for storing data with a specific set of tradeoffs to each</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>The Vector and the Varible</h2></hgroup><article  id="the-vector-and-the-varible">

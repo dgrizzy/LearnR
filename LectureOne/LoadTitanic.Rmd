@@ -20,4 +20,57 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 The `head()` functions allow us to view the first five rows of a dataframe.
 
-# 
+# Structure and Types of the Titanic Set
+```{r}
+
+```
+The `str()` gives us the data set's structure, or the variables and their respective types. This is important because they are often wrong and require changing.
+
+# Dimensions of the Dataset
+```{r}
+
+```
+The `dim()` function gives us the dimensions as a vector. (Always rows then columns). We can also access these independently with `nrow()` and `ncol()`.
+
+# Indexing
+```{r}
+
+```
+To index, we can use a few different commands. Each routinely comes in handy. 
+- To grab a vector, use `$`. *This returns a vector*
+- To grab a specific row, we can use the rc notation and []. *This returns a view of the dataframe*
+- We can do the same to get a column
+
+# Change Data Type
+```{r}
+
+```
+Using what we learned so far, let's select a piece of memory and update the data type. 
+- Any time we want to change the type, we will use a as.desiredtype() command and an assignment operator.
+
+# Update a Piece of Information
+```{r}
+
+```
+Use what we know so far to update a cell. Let's change a name.
+
+# Drop a Column
+```{r}
+
+```
+Use `NULL` and what we have learned to drop a column.
+- If we ever want to remove something from global memory, we can use `rm()`
+- If we ever want to clear it, click the broom. 
+
+# Add a New Column
+```{r}
+
+```
+Use what we know to write in a new one
+
+# Overwrite a Column
+```{r}
+
+```
+Use assignment to overwrite a column with another piece of data
+

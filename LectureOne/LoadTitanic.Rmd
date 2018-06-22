@@ -40,6 +40,7 @@ To index, we can use a few different commands. Each routinely comes in handy.
 - To grab a vector, use `$`. *This returns a vector*
 - To grab a specific row, we can use the rc notation and []. *This returns a view of the dataframe*
 - We can do the same to get a column
+- Vectors are indexed the same way!!
 
 # Change Data Type
 ```{r}
@@ -66,7 +67,8 @@ Use `NULL` and what we have learned to drop a column.
 ```{r}
 
 ```
-Use what we know to write in a new one
+- Use what we know to write in a new one
+- If we want to overwrite a new one 
 
 # Overwrite a Column
 ```{r}
@@ -74,3 +76,7 @@ Use what we know to write in a new one
 ```
 Use assignment to overwrite a column with another piece of data
 
+---
+# If Extra Time
+
+## Filter Dataset Using Logicals

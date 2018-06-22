@@ -12,118 +12,113 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ## What is and why use R?
-> - Statistical computing languge used by comapnies like [Facebook, Microsoft, NYT, Uber, and many more](https://www.listendata.com/2016/12/companies-using-r.html)
+> - Statistical computing language used by companies like [Facebook, Microsoft, NYT, Uber, and many more](https://www.listendata.com/2016/12/companies-using-r.html)
 > - Open source community (CRAN)
 > - Great visualization and reporting (Like these slides!)
-> - R Studio enviorment
+> - R Studio environment
 
 
 ## Why Learn R?
 > - Scaleable way to clean, manipulate, visualize, and model data
 > - Valuable, marketable skill
-> - Opporunity to automate routine data tasks
+> - Opportunity to automate routine data tasks
 > - Access to ecosystem of machine learning and AI tools
 > - Easier to learn for data than Python (Point of much debate)
 
-## Best Practices for Learning a New Programming Language
+## Best Practices for Learning a New Programming Language?
 > - Do it, make mistakes
+> - Learn to love debugging (as much as one can:)
 > - Be curious with documentation
 > - Ask me anything and set up extra time to talk
-> - Be paitent and be persistant
+> - Be persistent
 > - Give me lots of session feedback
 
-## R Studio
-- Super poupular R-focused IDE
+## R Studio?
+- Super popular R-focused (but not exclusive) IDE
 - Pulls a set of tools together to help us be more productive
 - Serves as a hub for the R community
-- *Do we all have it downloaded??* 
+-  **Do we all have it downloaded??**
 
-## What we are going to learn
-1. Basics of programming and data reading (Base R)
-2. Titanic data exploration using (Dplyr, ggplot)
-3. Data cleaning and manipulation (stringr, dplyr)
-4. Correlation and additional visualization (ggplot, corrplot)
-5. Linear modeling (lm(), MASS)
-6. K-Means cluster (caret)
+# Basic R Programming|Data Types and the Dataframe
 
-This is all very subject to change. This will be my first time setting up a course, so please let me know how to improve.
 
-# Basic R Programming
+## Goals for Today
+We will build an understanding of:
 
-# Goal for Today
-We have an understanding of:
-1. What R is
-2. How R stores information
+1. What R is (Hopefully done)
+2. How R stores data
 3. How to load a .csv into R
 4. How to access dataframe information
 
-## How does computer memory work?
-*Draw pointer diagram*
+## What is a Varible?
+- A variable is a way to store information for our later use
+- In R, we use `<-` to define variables instead of `=` 
+  - Technically we can use both, but it is recommended to stick with `<-`
+```{r echo=TRUE}
+someVar <- "Hello!"
+someVar
+```
 
 ## What is a Data Type?
-- Why is this important? **When you get an error in your code, it will _very_ often be due to a data type issues**
-- What is it? 
-  - A set of rules for storing data with a specific set of tradeoffs to each
+- A Data Type is a particular set of rules for storing data with a specific set of trade offs and permissible operations for each
+- **When you get an error in your code, it will _very_ often be due to a data type issues**
 
-## The Vector and the Varible
+### Base Data Types
+- *Character:* Text data, often called a string   
+- *Integer:* Whole numbers   
+- *Double:* Floating point numbers 
+- *Logical:* TRUE and FALSE      
+- *Factor:* More complex type for storing categorical data that is a blend of an integer and a string
+
+**All other data types are built on top of these**
+
+## Base Data Types
 ```{r echo=TRUE}
-ourVar <- "Hello World"
-anotherVar <- 5.5
-someOtherVar <- 6
-aLogicalVar <- TRUE 
-yetAnotherVar <- c("Detroit", "is", "for", "unicorns", "!") 
+ourVar <- "Hello World"; typeof(ourVar)
+anotherVar <- 5.5; typeof(anotherVar)
+someOtherVar <- 6L; typeof(someOtherVar)
+aLogicalVar <- TRUE; typeof(aLogicalVar)
 ```
 
-- In R, `<-` is the same thing as `=` when we define varibles
-- R sees everything as a vector regardless of lenght
-
-### What is a vector?
-- One dimensional array of data
-- Can be between length one or very long
-- In R, a single piece of information is a vector of length one
-
-## Vector Data Types
-- *Character:* Text data `"Hello World"`
-- *Integer:* Whole numbers `3`
-- *Double:* Floating point numbers `3.3`
-- *Logical:* TRUE and False `TRUE`
-- *Factor:* 
-
-Why are vectors important?
-> - Allows us to store and manipulate a lot of data very efficently giving a speed advantage at scale.
-
-## Vector Data Types
-```{r, echo = TRUE}
-typeof(ourVar)
-typeof(anotherVar)
-typeof(someOtherVar)
-typeof(aLogicalVar)
-typeof(yetAnotherVar)
+## Vector
+- We need to be able to store more than one value, so R gives us the vector, a one dimensional array of information. 
+- The combined command, `c()`, command helps us build a vector of any of the datatypes above
+```{r echo=TRUE}
+ourVector <- c(3.3, 4.4,6.7,1.1)
+length(ourVector)
+typeof(ourVector)
 ```
 
-## Breif Aside on Operators
-> - There are a wide array of basic operators that R can use like `+`, `-`, `/`, `//`, `%%`
-> - Also, R has a wide array of logical operators like `>`, `<`, `==`, `%in%`, and others
-> - We also have the `NA`, or the type for missing data.
-    - Any time you use `NA` anything that it touches will go to `NA`
+## Vector
+- In fact, R sees even single length pieces of data as a vector of length one
+```{r echo=TRUE}
+is.atomic(ourVar)
+length(ourVar)
+```
+- **Vectors must all be the same type**
+- This gives us speed advantages at scale
 
-# Rmarkdown
+## The Matrix
+- What if we need to store more than one dimension of data?
+- Luckily, we have the matrix
+- All data in a matrix must be the same type
+- Basically, think of it as a two dimensional vector
+```{r echo=TRUE}
+ourMatrix <- matrix(c(1.4, 2.2, 3.6, 4.9), c(2,2))
+ourMatrix; typeof(ourMatrix)
+```
+
+## The Dataframe
+- But most of our data has more than one type?
+- Enter: the dataframe
+- Basically a collection of vectors in a single object
+
+## Rmarkdown
 - Make a project folder
 - Let's Get started
 
-# The Data Frame and Reading .csv Data
-
-## Matrix No More
-- Matrix came before dataframe. Allowed us to store two-dimensional data, but only of the same type.
-- Data frames alow us to store square data of differnt types 
-- Think of a Dataframe as a collection of lists at a particular chunk of memory
-
-## Let's Load a Dataframe
-```{r echo=TRUE}
-titanicData <- read.csv("../titanic.csv")
-```
-
-
-
-
-
+## Breif Aside on Operators
+- There are a wide array of basic operators that R can use like `+`, `-`, `/`, `//`, `%%`
+- Also, R has a wide array of logical operators like `>`, `<`, `==`, `%in%`, and others
+- We also have the `NA`, or the type for missing data
+- We will run into all of these, so we will spend more time on it then

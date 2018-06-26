@@ -11,30 +11,36 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Load Titanic Set
 ```{r}
-
+titanic <- read.csv("titanic.csv")
 ```
 
 # Head of Titanic Set
 ```{r}
-
+# Some Title
+head(titanic)
 ```
 The `head()` functions allow us to view the first five rows of a dataframe.
 
 # Structure and Types of the Titanic Set
 ```{r}
-
+str(titanic)
 ```
 The `str()` gives us the data set's structure, or the variables and their respective types. This is important because they are often wrong and require changing.
 
 # Dimensions of the Dataset
 ```{r}
-
+dim(titanic)
 ```
 The `dim()` function gives us the dimensions as a vector. (Always rows then columns). We can also access these independently with `nrow()` and `ncol()`.
 
 # Indexing
 ```{r}
+titanic$Fare
 
+# Let's Find Mr. Allen
+titanic[5,4]
+
+titanic$Name[5]
 ```
 To index, we can use a few different commands. Each routinely comes in handy. 
 - To grab a vector, use `$`. *This returns a vector*

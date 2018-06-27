@@ -1,0 +1,87 @@
+---
+title: 'ScavengR #1'
+author: "David Griswold"
+date: "June 27, 2018"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+
+# ALWAYS KEEP THIS CHUNK OF CODE IN YOUR RMD FILES. WHEN YOU OPEN A NEW ONE, DELETE ANYTHING THAT FOLLOWS.
+
+# IF YOU USE A "#" IN YOUR CODE, R WILL NOT RUN ANYTHING ON THAT LINE. THIS IS CALLED A COMMENT. BASICALLY, IT JUST TELLS R THAT THE FOLLOWING IS FOR PEOPLE TO READ NOT THE COMPUTER. THIS IS ALSO SUPER HELPFUL FOR DEBUGGNIG. IF INSERT A # IN THE MARKDOWN PORTION OF THE DOCUMENT, IT WILL MAKE A HEADER WHEN IT COMPILES.
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Create a Project Folder and Load the Titanic Dataset
+It is important that we use a folder for each chunk of work. If you haven't, create one on your desktop for this course. Now, let's try the following:
+
+1. Check out [this](https://rmarkdown.rstudio.com/) link to learn a little more about using markdown. [This](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) handout is also super helpful.
+2. Enter the code to load the Titanic dataset below
+
+```{r}
+# Enter Code Here
+```
+
+
+## What is the average fare?
+```{r}
+# Enter Code Here
+```
+
+Using the `mean()` function, pass in the data vector for the fares. What was the average fare for a seat on the titanic? Feel free to look back at the lecture notes and use `$`. 
+
+## What is the name in the 277th row?
+```{r}
+# Enter Code Here
+```
+
+Use what we learned about indexing to select the name column and then the 277th row. 
+
+## What percent of people survived?
+```{r}
+# Enter Code Here
+```
+
+Let's give this a try. The survived column is in binary, so if we `sum()` it we should get the total number that survived. In addition, the `dim()` function we used gives us a vector back. How can we select the row number using `[]` indexing? Once we have these two, we can use `/` in R to divide. 
+
+---
+# Challenge Section
+
+## What percent of men survived??
+Here, we are going to use filtering to get the job done. In R, we can pass in a logical vector (a vector of TRUE and FALSE) values to specify which values we want. For example, let's say I just wanted to see how many people who left from Queensport, the "Q" in the dataset. I could enter the code below. 
+
+```{r}
+# When a file is in the folder above the folder your file is in, you can use ../ before the file name to get to it
+titanic <- read.csv("../titanic.csv")
+
+sum(titanic$Survived[titanic$Embarked == "Q"]) / nrow(titanic)
+```
+Here, `titanic$Embarked == "Q"` gives us a TRUE or a FLASE for every row in the data frame based on if the value in the embarked column, `titanic$Embarked` is equal `==` to "Q". R uses `==` for the inequality. We then pass that vector into the index and it excludes the FALSE values. As the remaining are either 1 or 0, we can just sum that up. Also, `nrow()` and `ncol()` gives you a shortcut to finding the row and column names. 
+
+Try on your own below:
+```{r}
+# Add code here 
+```
+
+
+That's it! Great work. Looking forward to learning more with you all! Hopefully, with some practice, working with big datasets will be a little less
+
+
+
+<iframe src="https://giphy.com/embed/OJw4CDbtu0jde" width="480" height="202" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+
+
+
+
+
+and a little more:
+
+
+<iframe src="https://giphy.com/embed/J12dgk74SczpC" width="480" height="261" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p>
+
+
+
+**Use control + shift + k to knit (compile) your .Rmd into an .html. Click open in web browser to appreciate the giphs **

@@ -2,7 +2,9 @@
 title: 'ScavengR #1'
 author: "David Griswold"
 date: "June 27, 2018"
-output: html_document
+output: 
+  html_document:
+    theme: cosmo
 ---
 
 

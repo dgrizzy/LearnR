@@ -23,7 +23,7 @@ It is important that we use a folder for each chunk of work. If you haven't, cre
 2. Enter the code to load the Titanic dataset below
 
 ```{r}
-# Enter Code Here
+titanic <- read.csv("titanic.csv")
 ```
 
 
@@ -36,17 +36,24 @@ Using the `mean()` function, pass in the data vector for the fares. What was the
 
 ## What is the name in the 277th row?
 ```{r}
-# Enter Code Here
+titanic[277, 4] 
 ```
 
 Use what we learned about indexing to select the name column and then the 277th row. 
 
 ## What percent of people survived?
 ```{r}
-# Enter Code Here
+
+
+
+
+
+
+
+
 ```
 
-Let's give this a try. The survived column is in binary, so if we `sum()` it we should get the total number that survived. In addition, the `dim()` function we used gives us a vector back. How can we select the row number using `[]` indexing? Once we have these two, we can use `/` in R to divide. 
+Let's give this a try. The survived column is in binary, so if we `sum()` it we should get the total number that survived. In addition, the `dim()` function we used gives us a vector back. How can we select the row number using `[]` indexing? Once we have these two, we can use `/` in R to divide.
 
 ---
 # Challenge Section
@@ -55,10 +62,13 @@ Let's give this a try. The survived column is in binary, so if we `sum()` it we 
 Here, we are going to use filtering to get the job done. In R, we can pass in a logical vector (a vector of TRUE and FALSE) values to specify which values we want. For example, let's say I just wanted to see how many people who left from Queensport, the "Q" in the dataset. I could enter the code below. 
 
 ```{r}
-# When a file is in the folder above the folder your file is in, you can use ../ before the file name to get to it
-titanic <- read.csv("../titanic.csv")
+ourFilter <- titanic$Sex == "male"
 
-sum(titanic$Survived[titanic$Embarked == "Q"]) / nrow(titanic)
+mean(titanic[ourFilter,2])
+
+
+
+
 ```
 Here, `titanic$Embarked == "Q"` gives us a TRUE or a FLASE for every row in the data frame based on if the value in the embarked column, `titanic$Embarked` is equal `==` to "Q". R uses `==` for the inequality. We then pass that vector into the index and it excludes the FALSE values. As the remaining are either 1 or 0, we can just sum that up. Also, `nrow()` and `ncol()` gives you a shortcut to finding the row and column names. 
 

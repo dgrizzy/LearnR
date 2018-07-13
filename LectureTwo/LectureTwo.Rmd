@@ -1,0 +1,57 @@
+---
+title: "Lecture Two: Advanced Data Manipulation"
+author: "David Griswold"
+date: "6/28/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Reveiw: Reading Data-In
+```{r}
+
+```
+Remember the `read.csv()` functions.
+
+# Installing Packages
+Many times, we will need to use those developer relationships and use packages. Very commonly, we will use parts of the tidyverse, a collection of R packages that works together. A package is basically a toolbox full of functions.
+
+## Install
+Before we can use the package, we need to download it. You shouldn't do this in the source file(here), type this command into the console. The command to do so is `install.packages("packageName")`.
+```{r}
+#install.packages("tidyverse")
+```
+This is written by Hadly Wickham, the god of the R universe. It's basically a package of helper functions that make working with data easier and better. Think of this as adding a package to our library.
+
+## Pulling the Package from the Library
+Each time we want to use a package, we need to pull it from the library. To do so, use:
+```{r}
+library(tidyverse)
+```
+
+# Breif Digression on the Wonderful Hadly Wickham
+- [Hadly's Site](http://hadley.nz/)
+- [Hadly's Github (Code Sharing Platform)](https://github.com/hadley)
+
+# Dplyr: A Toolbox for Data Preperation
+Dplyr is a fantastic set of verbs for manipulating data. A great resource can be found (here)[https://www.rstudio.com/resources/cheatsheets/]. 
+
+## Select Function
+```{r}
+
+```
+Let's say we have a big dataset and want to make it smaller. Let's select `Pclass` and `Age`. We can also specify which we don't want with `-`.
+
+## Filter
+Let's calculate the mean age of only the men:
+```{r}
+
+```
+
+## Group By and Summarise
+```{r}
+
+```
+This is really great for tabulating data. Did women survive more than men? Let's find out. 

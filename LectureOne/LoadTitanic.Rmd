@@ -7,6 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
 # Load Titanic Set
@@ -35,12 +36,9 @@ The `dim()` function gives us the dimensions as a vector. (Always rows then colu
 
 # Indexing
 ```{r}
-titanic$Fare
+mean(titanic$Survived)
 
-# Let's Find Mr. Allen
-titanic[5,4]
-
-titanic$Name[5]
+titanic[5,]
 ```
 To index, we can use a few different commands. Each routinely comes in handy. 
 - To grab a vector, use `$`. *This returns a vector*
@@ -50,7 +48,7 @@ To index, we can use a few different commands. Each routinely comes in handy.
 
 # Change Data Type
 ```{r}
-
+titanic$Name <- as.character(titanic$Name)
 ```
 Using what we learned so far, let's select a piece of memory and update the data type. 
 - Any time we want to change the type, we will use a as.desiredtype() command and an assignment operator.
@@ -59,11 +57,11 @@ Using what we learned so far, let's select a piece of memory and update the data
 ```{r}
 
 ```
-Use what we know so far to update a cell. Let's change a name.
+Use what we know so far to update a cell. Let's change a name... Remember Mr. Allen. Let's make sure Jack Dawson is well accounted for. 
 
 # Drop a Column
 ```{r}
-
+titanic$Ticket <- NULL
 ```
 Use `NULL` and what we have learned to drop a column.
 - If we ever want to remove something from global memory, we can use `rm()`
@@ -71,7 +69,7 @@ Use `NULL` and what we have learned to drop a column.
 
 # Add a New Column
 ```{r}
-
+titanic$Fam <- titanic$Parch + titanic$SibSp
 ```
 - Use what we know to write in a new one
 - If we want to overwrite a new one 
@@ -82,7 +80,3 @@ Use `NULL` and what we have learned to drop a column.
 ```
 Use assignment to overwrite a column with another piece of data
 
----
-# If Extra Time
-
-## Filter Dataset Using Logicals

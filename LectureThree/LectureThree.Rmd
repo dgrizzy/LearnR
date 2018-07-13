@@ -1,0 +1,46 @@
+---
+title: 'Lecture Three: Let’s Make Some Graphs'
+author: "David Griswold"
+date: "7/13/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd("/Users/davidgriswold/Desktop/LearnR/LectureThree")
+```
+
+# Load Titanic Set
+```{r}
+titanic <- read.csv("../titanic.csv")
+```
+
+# GGPlot: What is it and what will it do for us?
+GGPLOT is an professional level piece of graphics software that is universally used to produce professional-level scientific graphics. Used by Fivethirtyeight and others to produce graphics. It takes some practice, but it makes incredible graphics.
+
+**Incredable** documentation can be found here:
+- [GGplot Core Documentation](https://ggplot2.tidyverse.org/)
+- [R For Data Science Chapter](http://r4ds.had.co.nz/data-visualisation.html#the-layered-grammar-of-graphics)
+
+Also, there is always Google.
+
+
+## Grammar of Graphics
+- System for separating data out into layers
+
+----
+# It's Time to Start Thinking Like Analysts
+> Central Question  **How Can We Predict Survival on the Titanic?**
+
+
+## High Level Thinking
+Graphical work is often used for exploratory analysis and for getting a feel of the dataset. Let's give that a shot.
+
+We have (I hope) all seen Kate and Leo in their academy award winning performance. What factors do you think might influence your chance of making it off the boat? 
+
+*Fun fact: Titanic was the only movie to gross more after opening when Valentine's day pushed sales. 2nd Highest grossing movie of all times behind Avatar (3rd adjusted for inflation)
+*
+
+
+# How about relationships in the data? Let's look at a correlation plot
+## Corrplot Package

@@ -1,0 +1,92 @@
+---
+title: "Lecture Five"
+author: "David Griswold"
+date: "7/26/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+titanicData <- read.csv("titanic.csv")
+```
+
+# ggplot: Back to Titanic
+
+## Raw Survival Rates
+```{r}
+titanicData$Survived %<>% as.factor()
+
+ggplot(titanicData) +
+  geom_bar(aes(x = Survived, y = ..count../sum(..count..), fill = Survived)) +
+  labs(x = "Survived", y = "Proportion", title = "Titanic Survival Rate")
+```
+
+## How did survival rates change with Pclass?
+
+What do you think? Save this as `SurvivalxClass`
+```{r}
+# Really Annoying, but here is how we can go back to numeric 
+titanicData$Survived %<>% as.character() %>% as.numeric()
+
+titanicData$Pclass %<>% as.factor()
+
+SurvivalxClass <- group_by(titanicData, Pclass) %>% 
+  summarize(Survived = mean(Survived))
+```
+
+Let's visualize it! 
+```{r}
+ggplot(SurvivalxClass) +
+  geom_col(aes(x = Pclass, y = Survived, fill = Pclass))
+```
+
+If the varible we are working off is a factor, it will fill with that. Two main Bar Chart geom:
+
+- `geom_col` gives us the data as it is in the dataset
+- `geom_bar` gives you the density by the factor
+
+## Facets: How did our male/female survival change by pclass?
+
+```{r}
+titanicData$Survived %<>% as.character() %>% as.integer()
+
+group_by(titanicData, Pclass, Sex) %>% 
+  summarise(count = mean(Survived)) %>% 
+  ggplot() +
+  geom_col(aes(x = Sex, y = count, fill = Sex)) +
+  facet_grid(. ~ Pclass)
+```
+
+## Missingness
+```{r}
+library(Amelia)
+```
+
+
+
+## Correlation Plots
+
+What is a correlation?
+
+- Way of gauging how much variation is explained by some data
+$$\frac{Var_x \times Var_y}{n-1} $$
+$$ \frac{Cov_{xy}}{(Var_x)(Var_y)}$$
+
+What percent of the individual variance is explained by the convariance? It ranges between negative one and positive one.
+
+## How do we calculate it?
+
+```{r}
+# First, we need to subset to only numeric varibles
+subset <- select(titanicData, Survived, SibSp, Parch, Fare)
+
+# Make Correlation
+correlation <- cor(subset)
+
+# Plot
+library(corrplot)
+corrplot(correlation)
+```
+
+Not super insightful here. 
+

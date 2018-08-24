@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 setwd("/Users/davidgriswold/Desktop/LearnR/LectureThree")
 ```
 
+
 # Load Titanic Set
 ```{r}
 titanic <- read.csv("../titanic.csv")
@@ -40,6 +41,16 @@ We have (I hope) all seen Kate and Leo in their academy award winning performanc
 
 *Fun fact: Titanic was the only movie to gross more after opening when Valentine's day pushed sales. 2nd Highest grossing movie of all times behind Avatar (3rd adjusted for inflation)
 *
+
+# Class
+```{r}
+ggplot(titanic, aes(x = Pclass)) +
+  geom_bar() 
+
+
+
+```
+
 
 
 # How about relationships in the data? Let's look at a correlation plot

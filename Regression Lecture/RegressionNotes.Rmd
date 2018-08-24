@@ -1,0 +1,110 @@
+---
+title: "Regression Analysis in R"
+author: "David Griswold"
+date: "8/6/2018"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(magrittr)
+library(tidyverse)
+library(caret)
+```
+
+
+# Linear
+
+## What is Linear Regression?
+
+Regression is using a line and least squares methodology to estimate future values off of a current dataset.
+
+## When to use it
+
+**We should use linear regression to predict for a continous Y varible**
+
+In order to build a valid model, we need to control for the folowing asumptions inhernt in the model:
+
+1. Linear relationship
+2. Error terms that are uncorrelated and have non-constant variance
+3. Independent predictor varibles
+
+## The Model 
+
+Poupulation Version:
+$$ Y = \beta_0 + \beta_{1}X_{1} + e $$
+
+Sample Version:
+$$ y = b_0 + b_{1}x_{1} + e_{i} $$
+
+## Code It
+
+Let's predict the price of a diamond.
+
+```{r}
+ggplot(diamonds, aes(x = carat, y = price, color = cut)) +
+  geom_point()
+```
+
+## Model It!
+```{r}
+diamonds <- mutate(diamonds, Price_Sqrt = sqrt(price))
+
+diamondModel <- lm(price ~ carat, data = diamonds)
+summary(diamondModel)
+
+qplot(x = diamonds$carat, y = diamondModel$residuals)
+```
+
+## Dummy Varibles
+
+So what if we want to use a set of varibles that are not a continous numeric set? We can use a dummy varilbe! If its coded as a factor, R basically handels it for us
+
+```{r}
+diamondModel <- lm(Price_Sqrt ~ carat + cut, data = diamonds)
+summary(diamondModel)
+
+
+View(model.matrix(diamondModel))
+```
+
+
+# Logistic Regression 
+
+Sometimes we want to use regression to take a look at something that isn't a linear predictor, it's a one or a zero...like our titanic dataset. To do that, we have to use a sigmoid function to make them linear. Welcome to logistic regression.
+
+## Read In Data
+```{r}
+titanic <- read_csv("../titanic.csv")
+
+titanic %<>% mutate(Sex = as.factor(Sex), Embarked = as.factor(Embarked), Survived = as.factor(Survived))
+```
+
+## Partition Data
+```{r}
+index <- sample(1:nrow(titanic), nrow(titanic)*.8)
+
+train <- titanic[index,]
+
+test <- titanic[-index,]
+```
+
+## Fit Model
+```{r}
+titanicModel <- glm(Survived ~ Sex + Age, family = binomial("logit"), data = train)
+
+
+
+summary(titanicModel)
+```
+
+## Let's Make a Perdiction! 
+```{r}
+prediction <- predict(titanicModel, newdata = select(test,-Survived)) 
+
+prediction <-  ifelse(prediction > 0.5,1,0) %>% as.factor()
+
+confusionMatrix(prediction, test$Survived)
+```
+

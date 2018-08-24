@@ -1,0 +1,171 @@
+---
+title: "Dplyr + GGPlot"
+author: "David Griswold"
+date: "7/20/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Review: Group By and Summarise
+
+## Why is this important
+
+- A lot of time we have individual data and questison about the whole.
+- Examples:
+  - User sessions data but quesitons about the site's expierence
+  - Data by the week and questions about the year
+  - Data on the passenger but questions about the titanic
+- Using this functionality let's us bridge those gaps efficently
+
+## Pratice It
+### Read Data in
+```{r}
+library(tidyverse)
+library(magrittr)
+
+titanicData <- read.csv("../titanic.csv")
+```
+
+
+## Breif Digression Using NyC Flights Dataset
+
+Sometimes, we are dealing with a response that is continous rather than binary like the titanic dataset. R has a few that are baked in.
+
+```{r}
+flightData <- nycflights13::flights
+
+# Factorize where necessary
+flightData$carrier <- as.factor(flightData$carrier)
+flightData$origin <- as.factor(flightData$origin)
+```
+
+
+## On your own:
+
+- What is the average departure delay?
+- Which airport is the busiest? (Group by and summarise)
+- Which day is busiest?
+
+
+### Why do factor's matter?
+
+It let's the software know if the data is catagorical or not. This is really important for a lot of the graphical plots as well as doing summarization.
+
+
+## Who has the most flights out of NYC?
+```{r}
+group_by(flightData, carrier) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+```
+
+## Which Airports are the most busy?
+```{r}
+group_by(flightData, origin) %>% 
+  summarise(count = n())
+```
+
+## When are most fligths taking off?
+```{r}
+library(lubridate)
+flightData$time_hour <- ymd_hms(flightData$time_hour) 
+
+group_by(flightData, hour = hour(time_hour)) %>% 
+  summarise(flights = n()) %>% 
+  ggplot() + # we can tack GGPLOT right onto the end with another pipe operator
+  geom_line(aes(x = hour, y = flights))
+```
+
+## Which time of day is busiest each week?
+```{r}
+group_by(flightData, weekday = wday(time_hour), hour = hour(time_hour)) %>% 
+  summarise(flights = n()) %>% 
+  ggplot() +
+  geom_line(aes(x = hour, y = flights)) +
+  facet_wrap(~ weekday)
+
+
+```
+
+
+## How about on the same graph?
+```{r}
+
+```
+
+
+# ggplot: Back to Titanic
+
+## Raw Survival Rates
+```{r}
+titanicData$Survived %<>% as.factor()
+
+ggplot(titanicData) +
+  geom_bar(aes(x = Survived, y = ..count../sum(..count..), fill = Survived)) +
+  labs(x = "Survived", y = "Proportion", title = "Titanic Survival Rate")
+```
+
+## How did survival rates change with Pclass?
+
+What do you think? Save this as `SurvivalxClass`
+```{r}
+# Really Annoying, but here is how we can go back to numeric 
+titanicData$Survived %<>% as.character() %>% as.numeric()
+
+titanicData$Pclass %<>% as.factor()
+
+SurvivalxClass <- group_by(titanicData, Pclass) %>% 
+  summarize(Survived = mean(Survived))
+```
+
+Let's visualize it! 
+```{r}
+ggplot(SurvivalxClass) +
+  geom_col(aes(x = Pclass, y = Survived, fill = Pclass))
+```
+
+If the varible we are working off is a factor, it will fill with that. Two main Bar Chart geom:
+
+- `geom_col` gives us the data as it is in the dataset
+- `geom_bar` gives you the density by the factor
+
+## Facets: How did our male/female survival change by pclass?
+
+```{r}
+titanicData$Survived %<>% as.character() %>% as.integer()
+
+group_by(titanicData, Pclass, Sex) %>% 
+  summarise(count = mean(Survived)) %>% 
+  ggplot() +
+  geom_col(aes(x = Sex, y = count, fill = Sex)) +
+  facet_grid(. ~ Pclass)
+```
+
+## Correlation Plots
+
+What is a correlation?
+
+- Way of gauging how much variation is explained by some data
+$$\frac{Var_x \times Var_y}{n-1} $$
+$$ \frac{Cov_{xy}}{(Var_x)(Var_y)}$$
+
+What percent of the individual variance is explained by the convariance? It ranges between negative one and positive one.
+
+## How do we calculate it?
+
+```{r}
+# First, we need to subset to only numeric varibles
+subset <- select(titanicData, Survived, SibSp, Parch, Fare)
+
+# Make Correlation
+correlation <- cor(subset)
+
+# Plot
+library(corrplot)
+corrplot(correlation)
+```
+
+Not super insightful here. 

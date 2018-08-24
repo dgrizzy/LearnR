@@ -1,0 +1,56 @@
+---
+title: "Training 5"
+author: "David Griswold"
+date: "7/27/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+titanicData <- read.csv("../titanic.csv")
+library(tidyverse)
+```
+
+# Group By and Summarise
+```{r}
+group_by(titanicData, SibSp) %>% 
+summarise(Survival = mean(Survived)) %>% 
+  write_csv("grouped.csv")
+
+
+%>% 
+ggplot(aes(x = SibSp, y = Survival, fill = SibSp)) +
+  geom_col()
+```
+
+# Iris Visuaization
+```{r}
+iris <- iris
+
+
+ggplot(iris, aes(x = Sepal.Length / 10, y = Petal.Length / 10, color = "Species")) +
+  geom_point() +
+  geom_smooth() +
+  labs(title = "Flowers", x = "Petal Length", y = "Sepal Length", color = "Flowers") 
+
+
+qplot(data = iris, x = Sepal.Length, y = Petal.Length)
+```
+
+# Corrplot
+```{r}
+library(corrplot)
+library(Amelia)
+
+missmap(titanicData)
+
+irisSelected <- select(iris, -Species)
+
+
+corrplot(cor(irisSelected))
+
+```
+

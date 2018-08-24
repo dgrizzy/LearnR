@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Reveiw: Reading Data-In
 ```{r}
-
+titanic <- read.csv("../titanic.csv")
 ```
 Remember the `read.csv()` functions.
 
@@ -40,18 +40,20 @@ Dplyr is a fantastic set of verbs for manipulating data. A great resource can be
 
 ## Select Function
 ```{r}
-
+nameAge <- select(titanic, Name, Age)
 ```
 Let's say we have a big dataset and want to make it smaller. Let's select `Pclass` and `Age`. We can also specify which we don't want with `-`.
 
 ## Filter
 Let's calculate the mean age of only the men:
 ```{r}
-
+nameAgeFiltered <- filter(nameAge, Age > 25)
 ```
 
 ## Group By and Summarise
 ```{r}
+ourGroup <- group_by(titanic, Sex) 
 
+summary <- summarise(ourGroup, count = mean(Survived))
 ```
 This is really great for tabulating data. Did women survive more than men? Let's find out. 
